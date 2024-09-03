@@ -27,4 +27,4 @@ EXPOSE 3000
 
 # Start Nginx
 #CMD ["nginx", "-g", "daemon off;"]
-CMD ["npm","run","start"]
+CMD ["npm","start"]
