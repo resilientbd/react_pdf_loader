@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  http-server:
+    image: httpd:latest
+    container_name: http_server
+    ports:
+      - "8010:80"  # Exposes port 80 of the container on port 8000 of the host
+    volumes:
+      - ./pdfs:/usr/local/apache2/htdocs/  # Mounts the local 'pdfs' folder to the web server's document root
+      - ./httpd.conf:/usr/local/apache2/conf/httpd.conf  # Mounts the custom Apache configuration file

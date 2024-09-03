@@ -1,26 +1,68 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// src/App.tsx
+import React, { useState } from 'react';
+import UploadLink from './components/UploadLink';
+import PdfList from './components/PdfList';
+import CustomPdfViewer from './components/CustomPdfViewer';
+import './App.css'; // Ensure the CSS is correctly imported
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App: React.FC = () => {
+    const [pdfFiles, setPdfFiles] = useState<string[]>([]);
+    const [selectedPdf, setSelectedPdf] = useState<string | null>(null);
+    const [baseUrl, setBaseUrl] = useState<string>('');  // State to store the base URL
+
+    const handleLinkSubmit = async (link: string) => {
+        try {
+            setBaseUrl(link);  // Set the base URL
+            const response = await fetch(link);
+            console.log('File link:', link);
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const text = await response.text();
+
+            // Extract PDF file names from the HTML
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(text, 'text/html');
+            const links = doc.querySelectorAll('a[href$=".pdf"]');
+            const files = Array.from(links).map(link => link.getAttribute('href') || '');
+
+            setPdfFiles(files);
+            console.log('Selected files:', files);
+        } catch (error) {
+            console.error('Failed to fetch PDF files:', error);
+        }
+    };
+
+    const handleFileSelect = (file: string) => {
+        setSelectedPdf(file);
+        console.log('Filename:', file);
+    };
+
+    return (
+        <div style={{display: 'flex', gap: '20px', padding: '20px', height: '100vh', boxSizing: 'border-box'}}>
+            <div style={{
+                flex: '1',
+                maxWidth: '300px',
+                overflowY: 'auto',
+                border: '1px solid #ddd',
+                padding: '10px',
+                boxSizing: 'border-box'
+            }}>
+                <UploadLink onLinkSubmit={handleLinkSubmit}/>
+                <PdfList files={pdfFiles} baseUrl={baseUrl} onFileSelect={handleFileSelect}/>
+            </div>
+            <div style={{
+                flex: '2',
+                overflow: 'hidden',
+                border: '1px solid #ddd',
+                padding: '10px',
+                boxSizing: 'border-box'
+            }}>
+                {selectedPdf && <CustomPdfViewer fileUrl={`${baseUrl}/${selectedPdf}`}/>}
+            </div>
+        </div>
+    );
+};
 
 export default App;

@@ -13,6 +13,33 @@
   }
 }
 
+/* src/App.css */
+.appContainer {
+  display: flex;
+  gap: 20px; /* Adds space between the PDF list and the viewer */
+  padding: 20px;
+  height: 100vh; /* Ensures the container takes full viewport height */
+  box-sizing: border-box;
+}
+
+.pdfListContainer {
+  flex: 1; /* Adjusts width based on available space */
+  max-width: 300px; /* Sets a max width for the PDF list */
+  overflow-y: auto; /* Adds scrollbar if content overflows */
+  border: 1px solid #ddd; /* Optional: adds a border around the list */
+  padding: 10px; /* Optional: adds padding inside the container */
+  box-sizing: border-box;
+}
+
+.pdfViewerContainer {
+  flex: 2; /* Adjusts width based on available space */
+  overflow: hidden; /* Keeps the layout neat */
+  border: 1px solid #ddd; /* Optional: adds a border around the viewer */
+  padding: 10px; /* Optional: adds padding inside the container */
+  box-sizing: border-box;
+}
+
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

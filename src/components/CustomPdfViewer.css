@@ -1,0 +1,18 @@
+.appContainer {
+    display: flex;
+    justify-content: space-between; /* Space between the items */
+    gap: 20px; /* Optional: adds space between the items */
+    padding: 20px; /* Optional: adds padding around the container */
+    height: 100vh; /* Optional: makes sure the container takes full viewport height */
+}
+
+.pdfListContainer {
+    flex: 1; /* Adjusts width based on available space */
+    max-width: 300px; /* Set a max width for the PDF list */
+    overflow-y: auto; /* Adds scrollbar if content overflows */
+}
+
+.pdfViewerContainer {
+    flex: 2; /* Adjusts width based on available space */
+    overflow: hidden; /* Hides overflow to keep the layout neat */
+}
