@@ -40,26 +40,13 @@ const App: React.FC = () => {
     };
 
     return (
-        <div style={{display: 'flex', gap: '20px', padding: '20px', height: '100vh', boxSizing: 'border-box'}}>
-            <div style={{
-                flex: '1',
-                maxWidth: '300px',
-                overflowY: 'auto',
-                border: '1px solid #ddd',
-                padding: '10px',
-                boxSizing: 'border-box'
-            }}>
-                <UploadLink onLinkSubmit={handleLinkSubmit}/>
-                <PdfList files={pdfFiles} baseUrl={baseUrl} onFileSelect={handleFileSelect}/>
+        <div className="appContainer">
+            <div className="pdfListContainer">
+                <UploadLink onLinkSubmit={handleLinkSubmit} />
+                <PdfList files={pdfFiles} baseUrl={baseUrl} onFileSelect={handleFileSelect} />
             </div>
-            <div style={{
-                flex: '2',
-                overflow: 'hidden',
-                border: '1px solid #ddd',
-                padding: '10px',
-                boxSizing: 'border-box'
-            }}>
-                {selectedPdf && <CustomPdfViewer fileUrl={`${baseUrl}/${selectedPdf}`}/>}
+            <div className="pdfViewerContainer">
+                {selectedPdf && <CustomPdfViewer fileUrl={selectedPdf} />}
             </div>
         </div>
     );

@@ -24,7 +24,7 @@
 
 .pdfListContainer {
   flex: 1; /* Adjusts width based on available space */
-  max-width: 300px; /* Sets a max width for the PDF list */
+  max-width: 40%; /* Sets a max width for the PDF list */
   overflow-y: auto; /* Adds scrollbar if content overflows */
   border: 1px solid #ddd; /* Optional: adds a border around the list */
   padding: 10px; /* Optional: adds padding inside the container */
