@@ -1,5 +1,5 @@
 # Use the official Node.js image as the base image
-FROM node:18.19
+FROM node:18.19 as build
 
 # Set the working directory
 WORKDIR /app
@@ -17,14 +17,14 @@ COPY . .
 RUN npm run build
 
 # Use a smaller image to serve the built files
-#FROM nginx:alpine
+FROM nginx:alpine
 
 # Copy the build files from the previous stage to the Nginx public directory
-#COPY --from=build /app/build /usr/share/nginx/html
+COPY --from=build /app/build /usr/share/nginx/html
 
-# Expose port 80
-EXPOSE 3000
+Expose port 80
+#EXPOSE 3000
 
 # Start Nginx
-#CMD ["nginx", "-g", "daemon off;"]
-CMD ["npm","start"]
+CMD ["nginx", "-g", "daemon off;"]
+#CMD ["npm","start"]
