@@ -1,6 +1,3 @@
-// src/components/CustomPdfViewer.tsx
-'use client';
-
 import React, { useEffect, useState, useRef } from 'react';
 import { pdfjs, Document, Page } from 'react-pdf';
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
@@ -17,8 +14,6 @@ const options = {
     standardFontDataUrl: '/standard_fonts/',
 };
 
-const maxWidth = 800;
-
 interface CustomPdfViewerProps {
     fileUrl: string;
 }
@@ -26,13 +21,13 @@ interface CustomPdfViewerProps {
 const CustomPdfViewer: React.FC<CustomPdfViewerProps> = ({ fileUrl }) => {
     const [numPages, setNumPages] = useState<number>(0);
     const [currentPage, setCurrentPage] = useState<number>(1);
-    const [containerWidth, setContainerWidth] = useState<number>(maxWidth);
+    const [containerWidth, setContainerWidth] = useState<number>(0);
     const containerRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
         const handleResize = () => {
             if (containerRef.current) {
-                setContainerWidth(Math.min(containerRef.current.clientWidth, maxWidth));
+                setContainerWidth(containerRef.current.clientWidth);
             }
         };
 
@@ -60,19 +55,29 @@ const CustomPdfViewer: React.FC<CustomPdfViewerProps> = ({ fileUrl }) => {
 
     const goToNextPage = () => {
         if (currentPage < numPages) {
-            setCurrentPage(currentPage + 1);
+            setCurrentPage((prevPage) => prevPage + 1);
         }
     };
 
     const goToPreviousPage = () => {
         if (currentPage > 1) {
-            setCurrentPage(currentPage - 1);
+            setCurrentPage((prevPage) => prevPage - 1);
         }
     };
 
     return (
-        <div style={{ position: 'relative', padding: '20px', textAlign: 'center' }}>
-            <div ref={containerRef} style={{ margin: '0 auto', width: '100%', maxWidth: `${maxWidth}px` }}>
+        <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+            {/* Scrollable Document Section */}
+            <div
+                ref={containerRef}
+                style={{
+                    flex: '0 0 90%',  // Takes 80% of the height
+                    width: '100%',
+                    overflowY: 'auto',  // Enable vertical scrolling
+                    padding: '10px',
+                    boxSizing: 'border-box',
+                }}
+            >
                 <Document
                     file={fileUrl}
                     onLoadSuccess={onDocumentLoadSuccess}
@@ -81,15 +86,35 @@ const CustomPdfViewer: React.FC<CustomPdfViewerProps> = ({ fileUrl }) => {
                     <Page
                         key={`page_${currentPage}`}
                         pageNumber={currentPage}
-                        width={containerWidth}
+                        width={Math.min(containerWidth, 800)} // Adjust width based on container
                     />
                 </Document>
             </div>
-            <div style={{ position: 'absolute', top: 20, right: 20 }}>
-                <button onClick={goToPreviousPage} disabled={currentPage <= 1} style={{ marginRight: '10px' }}>
+
+            {/* Button Section */}
+            <div
+                style={{
+                    flex: '0 0 5%', // Takes 5% of the height
+                    position: 'relative',
+                    display: 'flex',
+                    justifyContent: 'flex-end',
+                    alignItems: 'flex-start',
+                    padding: '10px',
+                    width: '100%',
+                    boxSizing: 'border-box',
+                }}
+            >
+                <button
+                    onClick={goToPreviousPage}
+                    disabled={currentPage <= 1}
+                    style={{ marginRight: '10px' }}
+                >
                     Previous
                 </button>
-                <button onClick={goToNextPage} disabled={currentPage >= numPages}>
+                <button
+                    onClick={goToNextPage}
+                    disabled={currentPage >= numPages}
+                >
                     Next
                 </button>
             </div>

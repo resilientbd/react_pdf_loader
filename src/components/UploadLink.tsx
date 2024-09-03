@@ -31,7 +31,7 @@ const UploadLink: React.FC<UploadLinkProps> = ({ onLinkSubmit }) => {
                 placeholder="Enter network server link"
                 required
             />
-            <button type="submit">Upload</button>
+            <button type="submit">LOAD</button>
         </form>
     );
 };
