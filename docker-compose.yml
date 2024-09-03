@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  web:
+    image: faisalnybsys/network_pdf_loader
+    build:
+      context: .
+    ports:
+      - "80:80"

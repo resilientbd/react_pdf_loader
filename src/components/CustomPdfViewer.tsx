@@ -1,3 +1,4 @@
+// src/components/CustomPdfViewer.tsx
 'use client';
 
 import React, { useEffect, useState, useRef } from 'react';
@@ -54,17 +55,18 @@ const CustomPdfViewer: React.FC<CustomPdfViewerProps> = ({ fileUrl }) => {
 
     const onDocumentLoadSuccess = ({ numPages }: { numPages: number }) => {
         setNumPages(numPages);
+        setCurrentPage(1);  // Reset to the first page when a new document is loaded
     };
 
     const goToNextPage = () => {
         if (currentPage < numPages) {
-            setCurrentPage(prevPage => prevPage + 1);
+            setCurrentPage(currentPage + 1);
         }
     };
 
     const goToPreviousPage = () => {
         if (currentPage > 1) {
-            setCurrentPage(prevPage => prevPage - 1);
+            setCurrentPage(currentPage - 1);
         }
     };
 
@@ -84,17 +86,10 @@ const CustomPdfViewer: React.FC<CustomPdfViewerProps> = ({ fileUrl }) => {
                 </Document>
             </div>
             <div style={{ position: 'absolute', top: 20, right: 20 }}>
-                <button
-                    onClick={goToPreviousPage}
-                    disabled={currentPage <= 1}
-                    style={{ marginRight: '10px' }}
-                >
+                <button onClick={goToPreviousPage} disabled={currentPage <= 1} style={{ marginRight: '10px' }}>
                     Previous
                 </button>
-                <button
-                    onClick={goToNextPage}
-                    disabled={currentPage >= numPages}
-                >
+                <button onClick={goToNextPage} disabled={currentPage >= numPages}>
                     Next
                 </button>
             </div>
