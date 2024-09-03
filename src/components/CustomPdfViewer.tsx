@@ -71,7 +71,7 @@ const CustomPdfViewer: React.FC<CustomPdfViewerProps> = ({ fileUrl }) => {
             <div
                 ref={containerRef}
                 style={{
-                    flex: '0 0 90%',  // Takes 80% of the height
+                    flex: '0 0 85%',  // Takes 80% of the height
                     width: '100%',
                     overflowY: 'auto',  // Enable vertical scrolling
                     padding: '10px',
@@ -94,7 +94,7 @@ const CustomPdfViewer: React.FC<CustomPdfViewerProps> = ({ fileUrl }) => {
             {/* Button Section */}
             <div
                 style={{
-                    flex: '0 0 5%', // Takes 5% of the height
+                    flex: '0 0 10%', // Takes 5% of the height
                     position: 'relative',
                     display: 'flex',
                     justifyContent: 'flex-end',

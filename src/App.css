@@ -20,23 +20,52 @@
   padding: 20px;
   height: 100vh; /* Ensures the container takes full viewport height */
   box-sizing: border-box;
+  background-color: #f4f4f9; /* Light background for a clean appearance */
+  overflow: hidden; /* Prevents horizontal scrolling */
 }
 
 .pdfListContainer {
   flex: 1; /* Adjusts width based on available space */
   max-width: 40%; /* Sets a max width for the PDF list */
   overflow-y: auto; /* Adds scrollbar if content overflows */
-  border: 1px solid #ddd; /* Optional: adds a border around the list */
-  padding: 10px; /* Optional: adds padding inside the container */
+  border: 1px solid #ddd; /* Adds a subtle border */
+  border-radius: 8px; /* Rounded corners */
+  padding: 15px; /* Adds padding inside the container */
   box-sizing: border-box;
+  background-color: #fff; /* White background for clarity */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.pdfListItem {
+  padding: 10px; /* Adds padding around each item */
+  margin-bottom: 10px; /* Adds space between items */
+  border: 1px solid #eee; /* Optional: border around each item */
+  border-radius: 4px; /* Rounded corners for each item */
+  background-color: #fafafa; /* Light background for each item */
+  transition: background-color 0.2s; /* Smooth hover transition */
+  cursor: pointer;
+}
+
+.pdfListItem:hover {
+  background-color: #e9f5ff; /* Highlight color on hover */
 }
 
 .pdfViewerContainer {
   flex: 2; /* Adjusts width based on available space */
   overflow: hidden; /* Keeps the layout neat */
-  border: 1px solid #ddd; /* Optional: adds a border around the viewer */
-  padding: 10px; /* Optional: adds padding inside the container */
+  border: 1px solid #ddd; /* Adds a border around the viewer */
+  border-radius: 8px; /* Rounded corners */
+  padding: 15px; /* Adds padding inside the container */
   box-sizing: border-box;
+  background-color: #fff; /* White background for clarity */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  position: relative; /* Allows positioning of internal elements */
+}
+
+.pdfViewerContainer .pdfDocument {
+  height: calc(100% - 50px); /* Leaves space for controls */
+  overflow-y: scroll; /* Makes the document vertically scrollable */
+  margin-bottom: 10px; /* Adds space below the document */
 }
 
 
@@ -49,7 +78,41 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  padding: 20px; /* Adds padding for visual spacing */
+  text-align: center; /* Centers text */
 }
+
+button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007BFF;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+input[type="text"] {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 100%;
+  margin-bottom: 10px; /* Adds space between input and button */
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+input[type="text"]:focus {
+  border-color: #007BFF;
+  outline: none; /* Removes default focus outline */
+}
+
 
 .App-link {
   color: #61dafb;
